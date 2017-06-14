@@ -16,12 +16,17 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ["react", "es2015"]
+            presets: ["react", "es2015"],
+            plugins: [
+           ['import', {
+             libraryName: 'antd',
+             style: 'css',
+           }]]
           }
         }
       },
       {
-        test: /\.scss$/,
+        test: /\.(scss|css)$/,
         use: [
           {loader: "style-loader"}, 
           {loader: "css-loader"}, 
