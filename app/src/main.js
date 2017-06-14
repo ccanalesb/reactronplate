@@ -5,3 +5,4 @@ import Routes from './routes.jsx';
 window.onload = function(){
   ReactDOM.render(<Routes/>, document.getElementById('app'));
 }
+

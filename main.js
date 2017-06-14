@@ -1,5 +1,5 @@
 const electron = require('electron')
-
+const { ipcMain } = require('electron');
 // Module to control application life.
 const app = electron.app
 
@@ -36,10 +36,34 @@ function createWindow () {
   })
 }
 
+
+
+const dialog = require('electron').dialog || require('electron').remote.dialog;
+
+function showDialog(greeting) {
+  dialog.showMessageBox({
+    type: 'info',
+    title: 'Greetings',
+    message: `${greeting}!`,
+    buttons: []
+  });
+}
+
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on('ready', createWindow)
+app.on('ready', ()=>{
+    createWindow()
+    console.log("hola")
+
+    ipcMain.on('show_dialog', (event, props) => {
+      console.log(event)
+      showDialog(props.greeting);
+
+      // sending a message back is a little different
+      mainWindow.webContents.send('sendRendererMessage', { result: true });
+    });    
+})
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function () {
