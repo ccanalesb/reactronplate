@@ -5,7 +5,7 @@ export default class Body2 extends React.Component {
   render() {
     return (
       <div className="body">
-        <Link to="${match.url}/:">BACK TO HOME</Link>
+        <Link to="/">BACK TO HOME</Link>
       </div>
     )
   }

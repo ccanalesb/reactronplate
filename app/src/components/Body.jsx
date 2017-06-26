@@ -6,7 +6,7 @@ export default class Body extends React.Component {
   render() {
     return (
       <div className="body">
-        <Link to="${match.url}/:ciao">TO BODY 2</Link>
+        <Link to="/hola/:ciao">TO BODY 2</Link>
         <DatePicker />
       </div>
     )
