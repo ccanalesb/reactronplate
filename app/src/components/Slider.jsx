@@ -13,7 +13,7 @@ export default class Slider extends React.Component {
         });
     }
     next(){
-        this.slider.slickNext();
+        this.slickNext();
     };
     render(){
         return (

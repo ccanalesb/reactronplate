@@ -2,10 +2,14 @@ import React from 'react';
 import {Switch, Route, Link} from 'react-router-dom'
 import Body from './Body.jsx';
 import Body2 from './Body2.jsx';
+import CustomHeader from './Header.jsx';
+import CustomFooter from './Footer.jsx';
 import Quiz from './Quiz.jsx';
 
 import { LocaleProvider } from 'antd';
+import { Layout, Menu, Breadcrumb } from 'antd';
 import esES from 'antd/lib/locale-provider/es_ES';
+const { Header, Content, Footer } = Layout;
 
 require('./App.scss')
 
@@ -14,10 +18,16 @@ export default class App extends React.Component {
     return (
       <LocaleProvider locale={esES}>
         <div>
-          <Switch>
-            <Route exact path='/' component={Body}/>
-            <Route path='/hola/:ciao' component={Body2}/>
-          </Switch>
+          <CustomHeader/>
+          <Content style={{ padding: '0 50px', marginTop: 30 }}>
+            <Switch>
+              <Route exact path='/' component={Body}/>
+              <Route path='/body2' component={Body2}/>
+            </Switch>
+          </Content>
+          <CustomFooter/>
+
+
         </div>
       </LocaleProvider>
     )
