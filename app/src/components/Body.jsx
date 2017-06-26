@@ -1,22 +1,43 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
-import { DatePicker, Button } from 'antd';
-import Slider from './Slider.jsx';
-const { ipcRenderer } = require('electron');
+import { Row, Col } from 'antd';
+import { Card } from 'antd';
+const student_image = require('../images/Student.png');
+const teacher_image = require('../images/Teacher.png');
+
 
 export default class Body extends React.Component {
-  show_dialog(){
-    ipcRenderer.send('show_dialog', {
-      greeting: 'Oh Hi mark! :)'
-    });
-  }
   render() {
     return (
       <div className="body">
-        {/*<Link to="${match.url}/:ciao">TO BODY 2</Link>
-        <DatePicker />*/}
-        <Slider />
-        {/*<Button type="primary" size="large" onClick={this.show_dialog.bind(this)}>Mostrar dialogo</Button>*/}
+        <Row type="flex" justify="space-around" align="middle">
+          <Col span={6}>
+            <Link to = '/body2'>
+              <Card style={{ width: 240 }} bodyStyle={{ padding: 0 }}>
+                <div className="custom-image">
+                  <img alt="example" width="100%" src={teacher_image} />
+                </div>
+                <div className="custom-card">
+                  <h1> Profesor </h1>
+                </div>
+              </Card>            
+            </Link>
+          </Col>
+          <Col span={6}>
+            <Link to = '/body2'>
+              <Card style={{ width: 240 }} bodyStyle={{ padding: 0 }}>
+                <div className="custom-image">
+                  <img alt="example" width="100%" src={student_image} />
+                </div>
+                <div className="custom-card">
+                  <h1> Alumno </h1>
+                </div>
+              </Card>
+            </Link>
+          </Col>
+          
+        </Row>
+
       </div>
     )
   }
