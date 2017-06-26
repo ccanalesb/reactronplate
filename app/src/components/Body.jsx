@@ -13,9 +13,9 @@ export default class Body extends React.Component {
   render() {
     return (
       <div className="body">
-<Link to="/hola/:ciao">TO BODY 2</Link>
+        <Link to="/hola/:ciao">TO BODY 2</Link>
 
-        <Slider />
+        {/*<Slider />*/}
         {/*<Button type="primary" size="large" onClick={this.show_dialog.bind(this)}>Mostrar dialogo</Button>*/}
       </div>
     )
