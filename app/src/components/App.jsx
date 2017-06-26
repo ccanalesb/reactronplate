@@ -11,21 +11,22 @@ import { Layout, Menu, Breadcrumb } from 'antd';
 import esES from 'antd/lib/locale-provider/es_ES';
 const { Header, Content, Footer } = Layout;
 
-require('./App.scss')
+require('./App.less')
 
 export default class App extends React.Component {
   render() {
     return (
       <LocaleProvider locale={esES}>
         <div>
-          <CustomHeader/>
-          <Content style={{ padding: '0 50px', marginTop: 30 }}>
+          {/*<CustomHeader/>*/}
+          {/*<Content style={{ padding: '0 50px', marginTop: 30 }}>*/}
             <Switch>
               <Route exact path='/' component={Body}/>
               <Route path='/body2' component={Body2}/>
+              <Route path='/quiz' component={Quiz}/>
             </Switch>
-          </Content>
-          <CustomFooter/>
+          {/*</Content>*/}
+          {/*<CustomFooter/>*/}
 
 
         </div>

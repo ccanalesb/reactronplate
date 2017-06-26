@@ -1,4 +1,7 @@
 const path = require('path');
+const fs  = require('fs');
+const lessToJs = require('less-vars-to-js');
+const themeVariables = lessToJs(fs.readFileSync(path.join(__dirname, 'app/src/ant-theme-vars.less'), 'utf8'));
 
 module.exports = {
   watch: true,
@@ -20,7 +23,7 @@ module.exports = {
             plugins: [
            ['import', {
              libraryName: 'antd',
-             style: 'css',
+             style: true,
            }]]
           }
         }
@@ -32,6 +35,19 @@ module.exports = {
           {loader: "css-loader"}, 
           {loader: "sass-loader"}
         ]
+      },
+      {
+        test: /\.(less)$/,
+        use: [{
+            loader: "style-loader" // creates style nodes from JS strings
+        }, {
+            loader: "css-loader" // translates CSS into CommonJS
+        }, {
+            loader: "less-loader", // compiles Less to CSS
+            options: {
+              modifyVars: themeVariables
+            }
+        }]
       },
       {
         test: /\.(png|woff|woff2|eot|ttf|svg)$/,

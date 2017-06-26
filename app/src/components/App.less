@@ -1,7 +1,10 @@
-$font-stack:    Helvetica, sans-serif;
-$primary-color: #C5C5C5;
-$primary-color-dark: #B1B1B1;
-$primary-color-light: #CACACA;
+@import "../ant-theme-vars.less";
+
+*{
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+             "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",
+             SimSun, sans-serif;
+}
 
 // body {
 //     font: 100% $font-stack;
@@ -63,4 +66,19 @@ $primary-color-light: #CACACA;
 .quiz-container{
     padding-top: 3em;
     padding-bottom: 3em;
+    height: 100%;
+}
+
+.ant-layout{
+  background: none;
+}
+
+.display2{
+  font-size: 24pt;
+  color: #373737;
+  font-weight: normal;
+}
+
+.colored{
+  color: @accent-color;
 }

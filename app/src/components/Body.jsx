@@ -10,6 +10,7 @@ export default class Body extends React.Component {
   render() {
     return (
       <div className="body">
+        <Link to = '/quiz'>Quiz</Link>
         <Row type="flex" justify="space-around" align="middle">
           <Col span={6}>
             <Link to = '/body2'>
