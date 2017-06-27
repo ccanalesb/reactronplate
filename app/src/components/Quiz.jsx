@@ -15,6 +15,7 @@ export default class Quiz extends React.Component {
     super(props);
     this.state = {
       current: 0,
+      ans: {}
     };
   }
   next() {
@@ -24,6 +25,18 @@ export default class Quiz extends React.Component {
   prev() {
     const current = this.state.current - 1;
     this.setState({ current });
+  }
+  doAnswer(question_uid,answer_uid){
+    let ans = this.state.ans;
+    let answer_array = ans.hasOwnProperty(question_uid)?ans[question_uid]:[];
+    if(answer_array.indexOf(answer_uid)<0){
+      answer_array.push(answer_uid);
+    }else{
+      answer_array.splice(answer_array.indexOf(answer_uid),1)
+    }
+    ans[question_uid] = answer_array;
+    this.setState({ans})
+    console.log(this.state);
   }
   render() {
     const { current } = this.state;
@@ -38,6 +51,7 @@ export default class Quiz extends React.Component {
                   <Icon type="swap-right" />
                 </span>
                 {steps[this.state.current].question}
+                <img src={steps[this.state.current].image} />
               </h2>
               {QuestionUtils.get_right_answers_number(steps[this.state.current])>1?
                 <Alert message="Se pueden seleccionar varias opciones" className="colored" type="info" />
@@ -46,8 +60,12 @@ export default class Quiz extends React.Component {
                 <Row gutter={16}>
                   
                   {steps[this.state.current].answers.map((item, idx) => 
-                    <Col span={8} key={idx}>
-                      <Card bordered={true}>
+                    <Col span={8} key={item.uid}>
+                      <Card 
+                        bordered={true} 
+                        onClick={(e) => this.doAnswer(steps[this.state.current].uid,item.uid)}
+                        className={(this.state.ans.hasOwnProperty(steps[this.state.current].uid)?this.state.ans[steps[this.state.current].uid]:[]).indexOf(item.uid)<0?"":"selected"}
+                      >
                         {item.hasOwnProperty('image')?
                           <div className="custom-image">
                             <img alt="example" width="100%" src={item.image} />
@@ -73,28 +91,28 @@ export default class Quiz extends React.Component {
                 {
                   this.state.current === steps.length - 1
                   &&
-                  <Button size="large" type="primary" onClick={() => message.success('Processing complete!')}>Done</Button>
+                  <Button size="large" type="primary" onClick={() => message.success('Processing complete!')}>Terminar prueba</Button>
                 }
                 {
                   this.state.current > 0
                   &&
                   <Button size="large" style={{ marginLeft: 8 }} onClick={() => this.prev()}>
-                    Volver
+                    Pregunta anterior
                   </Button>
                 }
               </div>
           </Col>
         </Row> 
       </Content>
-      <Footer>
-        <Affix offsetBottom={0}>
+      <Footer className="quiz-progress">
+        
           <Steps progressDot current={current}>
             {steps.map((item,index) => <Step key={index} title={"Pregunta "+(index+1)} />)}
             {/*<Step title="Finished" description="This is a description." />
             <Step title="In Progress" description="This is a description." />
             <Step title="Waiting" description="This is a description." />*/}
           </Steps>
-        </Affix>
+        
 
         {/*<Row type="flex" justify="center" align="bottom">
           <Col span={16}>
