@@ -36,6 +36,10 @@ export default class Quiz extends React.Component {
     }
     ans[question_uid] = answer_array;
     this.setState({ans})
+    socket.emit("send_ans",{
+                              current: this.state.current, 
+                              ans: this.state.ans
+                            });
     console.log(this.state);
   }
   render() {
@@ -68,7 +72,8 @@ export default class Quiz extends React.Component {
                       >
                         {item.hasOwnProperty('image')?
                           <div className="custom-image">
-                            <img alt="example" width="100%" src={item.image} />
+                   
+                      <img alt="example" width="100%" src={item.image} />
                           </div>
                         :""}
                         {item.hasOwnProperty('content')?

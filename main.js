@@ -77,6 +77,13 @@ app.on('ready', ()=>{
               console.log("received test"); // not displayed
               // io.emit("ok");
           })
+          socket.on('send_ans', function (data) {
+            console.log(data);
+          });
+          socket.on('student', function (data) {
+            console.log("Recibiendo datos del estudiante")
+            console.log(data);
+          });
       });    
     })    
 })

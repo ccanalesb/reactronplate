@@ -38,7 +38,7 @@ export default class Body extends React.Component {
             </Link>
           </Col>
           <Col span={6}>
-            <Link to = '/body2'>
+            <Link to = '/studentview'>
               <Card style={{ width: 240 }} bodyStyle={{ padding: 0 }}>
                 <div className="custom-image">
                   <img alt="example" width="100%" src={student_image} />
