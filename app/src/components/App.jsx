@@ -11,9 +11,20 @@ import { Layout, Menu, Breadcrumb } from 'antd';
 import esES from 'antd/lib/locale-provider/es_ES';
 const { Header, Content, Footer } = Layout;
 
+import io from 'socket.io-client'
+
 require('./App.less')
 
+// var socket = io();
+var socket = io("http://localhost:8081");
+// var socket = io.connect(document.location.protocol+'//'+document.location.host);
+window.socket = socket;
+
 export default class App extends React.Component {
+  constructor(){
+    super();
+    socket.on('connection')    
+  }  
   render() {
     return (
       <LocaleProvider locale={esES}>
