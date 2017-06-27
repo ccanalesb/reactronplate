@@ -66,6 +66,19 @@ app.on('ready', ()=>{
       // sending a message back is a little different
       mainWindow.webContents.send('sendRendererMessage', { result: true });
     });    
+    ipcMain.on('teacher',(event,props)=>{
+      var server = require('http').createServer();
+      var io = require('socket.io')(server);    
+      io.listen(8081);
+
+      io.on('connection', function(socket){
+        console.log('a user connected');
+          socket.on("student", () => {
+              console.log("received test"); // not displayed
+              // io.emit("ok");
+          })
+      });    
+    })    
 })
 
 // Quit when all windows are closed.
