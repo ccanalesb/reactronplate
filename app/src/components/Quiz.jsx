@@ -43,6 +43,10 @@ export default class Quiz extends React.Component {
     }
     ans[question_uid] = answer_array;
     this.setState({ans})
+    socket.emit("send_ans",{
+                              current: this.state.current, 
+                              ans: this.state.ans
+                            });
     console.log(this.state);
   }
   render() {
@@ -58,7 +62,11 @@ export default class Quiz extends React.Component {
                   <Icon type="swap-right" />
                 </span>
                 {steps[this.state.current].question}
-                <img src={steps[this.state.current].image} />
+                <div>
+                  {steps[this.state.current].hasOwnProperty("image")?
+                    <img className="question-image" src={steps[this.state.current].image} />:""
+                  }
+                </div>
               </h2>
               {QuestionUtils.get_right_answers_number(steps[this.state.current])>1?
                 <Alert message="Se pueden seleccionar varias opciones" className="colored" type="info" />
@@ -75,7 +83,8 @@ export default class Quiz extends React.Component {
                       >
                         {item.hasOwnProperty('image')?
                           <div className="custom-image">
-                            <img alt="example" width="100%" src={item.image} />
+                   
+                      <img alt="example" width="100%" src={item.image} />
                           </div>
                         :""}
                         {item.hasOwnProperty('content')?
