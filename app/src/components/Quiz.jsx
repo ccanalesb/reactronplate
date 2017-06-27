@@ -2,9 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom'
 import { Row, Col, Affix, Alert } from 'antd';
 import { Steps, Button, message, Card } from 'antd';
-import { Layout, Menu, Breadcrumb, Icon } from 'antd';
+import { Layout, Icon } from 'antd';
 import {sample_questions, QuestionUtils} from '../utils.js';
-const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
 const Step = Steps.Step;
 
@@ -17,6 +16,9 @@ export default class Quiz extends React.Component {
       current: 0,
       ans: {}
     };
+    document.addEventListener('keydown', e => {
+      (e.key=="Enter")?this.next():0;
+    });
   }
   next() {
     const current = this.state.current + 1;
@@ -29,8 +31,13 @@ export default class Quiz extends React.Component {
   doAnswer(question_uid,answer_uid){
     let ans = this.state.ans;
     let answer_array = ans.hasOwnProperty(question_uid)?ans[question_uid]:[];
+    let right_answers = QuestionUtils.get_right_answers_number(steps[this.state.current]);
     if(answer_array.indexOf(answer_uid)<0){
-      answer_array.push(answer_uid);
+      if(right_answers > 1){
+        answer_array.push(answer_uid);
+      }else{
+        answer_array = [answer_uid];
+      }
     }else{
       answer_array.splice(answer_array.indexOf(answer_uid),1)
     }
@@ -42,7 +49,7 @@ export default class Quiz extends React.Component {
     const { current } = this.state;
     return (
       <Layout>
-      <Content className="quiz-container">
+      <Content className="main-container">
         <Row type="flex" justify="center" align="middle">
           <Col span={16}>
               <h2 className="display2">
