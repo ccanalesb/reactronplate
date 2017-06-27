@@ -31,7 +31,7 @@ export default class TeacherView extends React.Component {
           style={{ height: '100%', borderRight: 0 }}
         >
           <SubMenu key="sub1" title={<span><Icon type="user" />Alumnos</span>}>
-            <Menu.Item key="1"><Link to = '/teacherview/list'>Mostrar lista de alumnos</Link></Menu.Item>
+            <Menu.Item key="1"><Link to = '/teacherview/gradeselect'>Mostrar lista de alumnos</Link></Menu.Item>
           </SubMenu>
           <SubMenu key="sub2" title={<span><Icon type="laptop" />Profesor</span>}>
             <Menu.Item key="5">option5</Menu.Item>
@@ -45,10 +45,6 @@ export default class TeacherView extends React.Component {
       <Layout>        
       ESTO ES EL PADRE <Link to = '/teacherview/gradeselect'>Lis</Link>
       <Switch>
-        {/*<Route path='/teacherview/list' component={StudentsList}/>*/}
-        {/*<Route path='/teacherview/gradelist' render={(props) => (
-          <StudentsList {...props} data={sample_students}/>
-        )}/>        */}
         <Route path='/teacherview/gradeselect' render={(props) => (
           <GradeSelect {...props} data={sample_students}/>
         )}/>        
