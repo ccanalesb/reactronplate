@@ -4,6 +4,7 @@ import Body from './Body.jsx';
 import Body2 from './Body2.jsx';
 import CustomHeader from './Header.jsx';
 import CustomFooter from './Footer.jsx';
+import TeacherView from './TeacherView.jsx';
 import Quiz from './Quiz.jsx';
 
 import { LocaleProvider } from 'antd';
@@ -35,6 +36,7 @@ export default class App extends React.Component {
               <Route exact path='/' component={Body}/>
               <Route path='/body2' component={Body2}/>
               <Route path='/quiz' component={Quiz}/>
+              <Route path='/teacherview' component={TeacherView}/>
             </Switch>
           {/*</Content>*/}
           {/*<CustomFooter/>*/}

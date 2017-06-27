@@ -9,11 +9,11 @@ const { ipcRenderer } = require('electron');
 
 
 export default class Body extends React.Component {
-  click_on_teacher(){
-      ipcRenderer.send('teacher', {
-        teacher_id: 'teacher_id'
-      });
-  }  
+  // click_on_teacher(){
+  //     ipcRenderer.send('teacher', {
+  //       teacher_id: 'teacher_id'
+  //     });
+  // }  
   emit_to_server(){
       console.log(socket)
       socket.emit("student");
@@ -25,9 +25,10 @@ export default class Body extends React.Component {
         <div><h3><Button type="primary" size="large" onClick={this.emit_to_server.bind(this)}>Emit</Button></h3></div>        
         <Row type="flex" justify="space-around" align="middle">
           <Col span={6}>
-            <Link to = '/body2'>
+            <Link to = '/teacherview'>
               <Card style={{ width: 240 }} bodyStyle={{ padding: 0 }}>
-                <div className="custom-image" onClick={this.click_on_teacher.bind(this)}>
+                {/*<div className="custom-image" onClick={this.click_on_teacher.bind(this)}>*/}
+                <div className="custom-image">
                   <img alt="example" width="100%" src={teacher_image} />
                 </div>
                 <div className="custom-card">

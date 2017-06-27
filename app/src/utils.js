@@ -47,3 +47,14 @@ export class QuestionUtils{
         return question.answers.map(a => a.ra?1:0).reduce((a,b)=>a+b,0);
     }
 }
+
+export const sample_students = [
+    {
+        grade: "5to",
+        students : [
+            {number : 1, name : "Pedro", status: "on"},
+            {number : 2, name : "Pablo", status: "off"},
+            {number : 3, name : "Marco", status: "on"},
+        ]
+    }
+]
