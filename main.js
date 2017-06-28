@@ -69,6 +69,7 @@ function showDialog(greeting) {
   });
 }
 
+var io = null;
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
@@ -89,43 +90,45 @@ app.on('ready', ()=>{
       console.log(grade_name)
     });        
     ipcMain.on('teacher',(event,props)=>{
-      var server = require('http').createServer();
-      var io = require('socket.io')(server);    
-      io.listen(8081);
+      if(io == null){
+        var server = require('http').createServer();
+        io = require('socket.io')(server);    
+        io.listen(8081);
 
-      io.on('connection', function(socket){
-          console.log('a user connected');
-          socket.on('send_ans', function (data) {
-            console.log(data);
-          });
-          socket.on('student_snap', function (data) {
-            console.log(data);
-            socket.emit('snap_saved', {})
-          });
-          socket.on('student', function (data) {
-            console.log("Recibiendo datos del estudiante")
-            if(grade_name != ""){
-            bd = store.get('sample_students')
-              for (var i = 0; i < bd.length; i++) {
-                  grade = bd[i]
-                  if(grade["grade"]==grade_name){
-                    students = grade["students"]
-                    for (let item of students) {
-                      if(item.number==data.student_id){
-                        socket.emit('check_student', { student : item})
-                      }                  
-                    }                    
-                  }
+        io.on('connection', function(socket){
+            console.log('a user connected');
+            socket.on('send_ans', function (data) {
+              console.log(data);
+            });
+            socket.on('student_snap', function (data) {
+              console.log(data);
+              socket.emit('snap_saved', {})
+            });
+            socket.on('student', function (data) {
+              console.log("Recibiendo datos del estudiante")
+              if(grade_name != ""){
+              bd = store.get('sample_students')
+                for (var i = 0; i < bd.length; i++) {
+                    grade = bd[i]
+                    if(grade["grade"]==grade_name){
+                      students = grade["students"]
+                      for (let item of students) {
+                        if(item.number==data.student_id){
+                          socket.emit('check_student', { student : item})
+                        }                  
+                      }                    
+                    }
+                }
               }
-            }
-            // var data = fs.readFileSync('app/src/utils.js');
-            // // console.log("Synchronous read: " + data.toString());
-            // students_data = data.toString().substring([data.toString().search("sample_students")],data.toString().length);
-            // bd =JSON.stringify(students_data)
-            // console.log(bd)
-          });
-          
-      });    
+              // var data = fs.readFileSync('app/src/utils.js');
+              // // console.log("Synchronous read: " + data.toString());
+              // students_data = data.toString().substring([data.toString().search("sample_students")],data.toString().length);
+              // bd =JSON.stringify(students_data)
+              // console.log(bd)
+            });
+            
+        });   
+      } 
     })    
 })
 

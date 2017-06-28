@@ -13,7 +13,7 @@ export default class StudentView extends React.Component {
         super(props);
         this.state = {
             student_id: 0,
-            current : 3
+            current : 0
         };
         socket.on('check_student', function (data) {
             if( ((Object.keys(data)).length)){
