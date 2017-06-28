@@ -5,6 +5,7 @@ import {Card, Button} from 'antd';
 import {Layout, Icon, Tag, Select} from 'antd';
 import {secondsToHms} from '../utils.js';
 import {Collapse} from 'antd';
+import StudentsList from './StudentsList.jsx';
 const Panel = Collapse.Panel;
 
 const text = `
@@ -99,6 +100,7 @@ export default class QuizDashboard extends React.Component {
             <span>Tiempo transcurrido: {this.state.elapsed_time}
             </span>
         )
+        let students = this.state.students.length?this.state.students:[]
         return (
             <Row gutter={8}>
                 <Col span={24}>
@@ -178,7 +180,7 @@ export default class QuizDashboard extends React.Component {
                             <p>{text}</p>
                         </Panel>
                         <Panel header="En evaluación" key="2">
-                            <p>{text}</p>
+                            <StudentsList students={this.state.students}/>
                         </Panel>
                         <Panel header="Finalizados" key="3">
                             <p>{text}</p>

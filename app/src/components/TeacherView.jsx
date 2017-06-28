@@ -33,11 +33,16 @@ export default class TeacherView extends React.Component {
               theme="light"
             >
               <SubMenu key="sub_home" title={<span><Icon type="home" />Inicio</span>}>
-                <Menu.Item key="1">Sesión de evaluación</Menu.Item>
+                <Menu.Item key="1">
+                  <Link to='/teacherview'>
+                    Sesión de evaluación
+                  </Link>
+                </Menu.Item>
                 <Menu.Item key="2">Listado de evaluaciones</Menu.Item>
               </SubMenu>
               <SubMenu key="sub_class" title={<span><Icon type="user" />Cursos</span>}>
-                <Menu.Item key="3"><Link to='/teacherview/gradeselect'>Mostrar lista de alumnos</Link></Menu.Item>
+                  <Menu.Item key="3">Mostrar lista de alumnos</Menu.Item>
+                
               </SubMenu>
               <SubMenu key="sub_profile" title={<span><Icon type="laptop" />Profesor</span>}>
                 <Menu.Item key="4">Seguridad</Menu.Item>
@@ -50,10 +55,12 @@ export default class TeacherView extends React.Component {
             <Content className="teacherview-content">
               <Switch>
                 <Route path='/teacherview' component={QuizDashboard} />
-                <Route path='/teacherview/gradeselect' render={(props) => (
+                {/*<Route path='/teacherview/gradeselect' render={(props) => (
                   <GradeSelect {...props} data={sample_students} />
-                )} />
-                <Route path='/teacherview/studentlist/:id' component={StudentsList} />
+                )} />                */}
+                
+
+                <Route path='/teacherview/gradeselect' component={GradeSelect} />
               </Switch>
             </Content>
             {/*<Footer style={{ textAlign: 'center' }}>
