@@ -1,5 +1,22 @@
 const electron = require('electron')
 const { ipcMain } = require('electron');
+const fs = require("fs");
+
+const Store = require('electron-store');
+const store = new Store();
+
+store.set('sample_students', [
+    {
+        grade: "5to",
+        students : [
+            {number : 1, name : "Pedro", status: "on"},
+            {number : 2, name : "Pablo", status: "off"},
+            {number : 3, name : "Marco", status: "on"},
+        ]
+    }
+]);
+
+
 // Module to control application life.
 const app = electron.app
 
@@ -55,9 +72,7 @@ function showDialog(greeting) {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-
-const io = null;
-
+var grade_name = ""
 app.on('ready', ()=>{
     createWindow()
     console.log("hola")
@@ -69,28 +84,48 @@ app.on('ready', ()=>{
       // sending a message back is a little different
       mainWindow.webContents.send('sendRendererMessage', { result: true });
     });    
+    ipcMain.on('send_grade', (event, props) => {
+      grade_name = props.grade_name
+      console.log(grade_name)
+    });        
     ipcMain.on('teacher',(event,props)=>{
-      if(io != null){
+      var server = require('http').createServer();
+      var io = require('socket.io')(server);    
+      io.listen(8081);
 
-        var server = require('http').createServer();
-        var io = require('socket.io')(server);    
-        io.listen(8081);
-      
-        io.on('connection', function(socket){
+      io.on('connection', function(socket){
           console.log('a user connected');
-            socket.on("student", () => {
-                console.log("received test"); // not displayed
-                // io.emit("ok");
-            })
-            socket.on('send_ans', function (data) {
-              console.log(data);
-            });
-            socket.on('student', function (data) {
-              console.log("Recibiendo datos del estudiante")
-              console.log(data);
-            });
-        });    
-      }
+          socket.on('send_ans', function (data) {
+            console.log(data);
+          });
+          socket.on('student_snap', function (data) {
+            console.log(data);
+            socket.emit('snap_saved', {})
+          });
+          socket.on('student', function (data) {
+            console.log("Recibiendo datos del estudiante")
+            if(grade_name != ""){
+            bd = store.get('sample_students')
+              for (var i = 0; i < bd.length; i++) {
+                  grade = bd[i]
+                  if(grade["grade"]==grade_name){
+                    students = grade["students"]
+                    for (let item of students) {
+                      if(item.number==data.student_id){
+                        socket.emit('check_student', { student : item})
+                      }                  
+                    }                    
+                  }
+              }
+            }
+            // var data = fs.readFileSync('app/src/utils.js');
+            // // console.log("Synchronous read: " + data.toString());
+            // students_data = data.toString().substring([data.toString().search("sample_students")],data.toString().length);
+            // bd =JSON.stringify(students_data)
+            // console.log(bd)
+          });
+          
+      });    
     })    
 })
 
