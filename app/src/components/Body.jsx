@@ -21,7 +21,8 @@ export default class Body extends React.Component {
       socket.emit("student");
   }  
   render() {
-    return (<Layout>
+    return (
+    <Layout>
       <Content className="main-container">
         <Row type="flex" justify="center" align="middle">
           <Col span={16}>
@@ -51,7 +52,7 @@ export default class Body extends React.Component {
                   </Link>
                 </Col>
                 <Col span={12}>
-                  <Link to = '/quiz'>
+                  <Link to = '/studentview'>
                     <Card bordered={true} >
                       <div className="custom-image">
                         <img width="100%" src={student_image} />
@@ -68,6 +69,7 @@ export default class Body extends React.Component {
           </Col>
         </Row>
         </Content>
-    </Layout>)
+    </Layout>
+    )
   }
 }
