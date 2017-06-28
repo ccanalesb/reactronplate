@@ -28,13 +28,20 @@ export default class QuizDashboard extends React.Component {
             elapsed_time: 0,
             start_time: moment("2017-06-28T00:00"),
             last_restart: moment("2017-06-28T00:00"),
-            interval_id: null
+            interval_id: null,
+            students : []
         };
+        
 
     }
 
     componentDidMount() {
         this.setState({interval_id: setInterval(() => this.update_time(), 1000)});
+        ipcRenderer.on('send_active_students', (event,data)=>{
+            console.log(data)
+            this.setState({students : data.students})
+            console.log(this.state.students)
+        });        
     }
 
     update_time() {
@@ -57,6 +64,10 @@ export default class QuizDashboard extends React.Component {
         console.log(this.state.status);
         if (this.state.status == 'waiting') {
             this.setState({status: 'in_progress'})
+            ipcRenderer.send('quiz_started',[]);
+            console.log("empezando prueba")
+            let start_time = moment();
+            this.setState({start_time: start_time, last_restart: start_time })
         } else if (this.state.status == 'in_progress') {
             this.setState({status: 'paused'})
         } else if (this.state.status == 'paused') {
@@ -172,18 +183,24 @@ export default class QuizDashboard extends React.Component {
                         <Panel header="Finalizados" key="3">
                             <p>{text}</p>
                         </Panel>
-                        <Panel header="Conectados" key="4">
+                        <Panel header={"Conectados: "+this.state.students.length+" alumnos"} key="4">
                             <div
                                 style={{
                                     padding: '30px'
                                 }}>
                                 <Row gutter={16}>
-                                    {grades.map((e, i) => <Col
+                                    {this.state.students.map((e, i) => <Col
                                         span={8}
                                         key={i}
                                         >
-                                        <Card title={e.grade} bordered={true}>
-                                            <p>Alumnos: {e.students.length}</p>
+                                        <Card bordered={true}>
+                                            <div className="custom-image">
+                                                <img width="100%" src={e.snap} />
+                                            </div>
+                                            <div className="custom-card">
+                                                <p>Nombre: {e.student.name}</p>
+                                                <p>Nº lista: {e.student.number}</p>
+                                            </div>
                                         </Card>
                                     </Col>)}
                                 </Row>

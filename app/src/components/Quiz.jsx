@@ -23,10 +23,14 @@ export default class Quiz extends React.Component {
   next() {
     const current = this.state.current + 1;
     this.setState({ current });
+    console.log(this.props)
+    this.props.getAnswer(this.state.ans)
   }
   prev() {
     const current = this.state.current - 1;
     this.setState({ current });
+    console.log(this.props)
+    this.props.getAnswer(this.state.ans)
   }
   doAnswer(question_uid,answer_uid){
     let ans = this.state.ans;
@@ -43,13 +47,10 @@ export default class Quiz extends React.Component {
     }
     ans[question_uid] = answer_array;
     this.setState({ans})
-    socket.emit("send_ans",{
-                              current: this.state.current, 
-                              ans: this.state.ans
-                            });
     console.log(this.state);
   }
   render() {
+    console.log(this.props)
     const { current } = this.state;
     return (
       <Layout>

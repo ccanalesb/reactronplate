@@ -16,6 +16,8 @@ store.set('sample_students', [
     }
 ]);
 
+store.set('student_selected',[])
+
 
 // Module to control application life.
 const app = electron.app
@@ -88,7 +90,11 @@ app.on('ready', ()=>{
     ipcMain.on('send_grade', (event, props) => {
       grade_name = props.grade_name
       console.log(grade_name)
-    });        
+    });  
+    ipcMain.on('quiz_started', (event,props) => {
+      io.sockets.emit('quiz_started',{})
+      console.log("Empezar quiz")
+    });
     ipcMain.on('teacher',(event,props)=>{
       if(io == null){
         var server = require('http').createServer();
@@ -98,11 +104,30 @@ app.on('ready', ()=>{
         io.on('connection', function(socket){
             console.log('a user connected');
             socket.on('send_ans', function (data) {
-              console.log(data);
+              let students = store.get('student_selected')
+              let index = students.map((st)=>st.student.number).indexOf(data.student.number)
+              if(index>=0){
+                console.log("está")
+                students[index] = data;
+              }else{
+                console.log("no está")
+              }
+              store.set('student_selected', students);
+              
             });
             socket.on('student_snap', function (data) {
-              console.log(data);
-              socket.emit('snap_saved', {})
+              let students = store.get('student_selected')
+              let index = students.map((st)=>st.student.number).indexOf(data.student.number)
+              if(index>=0){
+                console.log("ya está")
+                socket.emit('already_saved', {})
+              }else{
+                students.push(data);
+                store.set('student_selected',students)
+                mainWindow.webContents.send('send_active_students', { students });
+                socket.emit('snap_saved', {})
+              }              
+
             });
             socket.on('student', function (data) {
               console.log("Recibiendo datos del estudiante")

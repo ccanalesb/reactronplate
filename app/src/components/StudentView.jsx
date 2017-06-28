@@ -7,6 +7,7 @@ import StudentSelect from './StudentSelect.jsx'
 import StudentConfirm from './StudentConfirm.jsx'
 import StudentCam from './StudentCam.jsx'
 import StudentWait from './StudentWait.jsx'
+import Quiz from './Quiz.jsx'
 
 export default class StudentView extends React.Component {
     constructor(props) {
@@ -30,7 +31,22 @@ export default class StudentView extends React.Component {
             let current = this.state.current
             current = 3
             this.setState({current:current })            
-        }.bind(this));        
+        }.bind(this));
+
+        socket.on('quiz_started', function (data) {
+            console.log("EMPEZO LA WEA")
+            let current = this.state.current
+            if(current == 3){
+                current = 4
+            }
+            console.log(current)
+            this.setState({current:current })            
+        }.bind(this));          
+        
+        socket.on('already_saved', function(data){
+            alert("Ya está conectado, vuelva a intentarlo")
+            this.props.history.push("/");
+        }.bind(this))
         // socket.on("check_student", data => {
         //     console.log(data)     
         // });        
@@ -59,8 +75,15 @@ export default class StudentView extends React.Component {
         let student = this.state.student
         student.snap = imageSrc
         this.setState({student:student})
-        socket.emit("student_snap",{student_snap: imageSrc, student:student});
+        socket.emit("student_snap",student);
     };    
+    getAnswer(answer){
+        console.log(answer)
+        let student = this.state.student
+        student.ans = answer
+        socket.emit("send_ans",student); 
+        this.setState({student:student})       
+    }
     render() {
         let components = [
             (<div >
@@ -87,28 +110,23 @@ export default class StudentView extends React.Component {
                     setRef = {this.setRef.bind(this)}
                     capture = {this.capture.bind(this)}
                 />
-            </div>),
+            </div>)
         ]
-        return (
-<div>
-    <Layout>
-      <Content className="main-container">
-        <Row type="flex" justify="center" align="middle">
-          <Col span={16}>              
-                {components[this.state.current]}
-          </Col>
-        </Row>
-        </Content>
-    </Layout>            
-      {/*<Switch>
-        <Route path='/studentview/select' render={(props) => (
-          <StudentSelect {...props} data={sample_students}/>
-        )}/>        
-        <Route path='/studentview/confirm' render={(props) => (
-          <StudentConfirm {...props} data={sample_students}/>
-        )}/>        
-      </Switch> */}
-</div>    
-        )
+
+        let comp = this.state.current!=4?(
+            <div>
+                <Layout>
+                <Content className="main-container">
+                    <Row type="flex" justify="center" align="middle">
+                    <Col span={16}>              
+                            {components[this.state.current]}
+                    </Col>
+                    </Row>
+                    </Content>
+                </Layout>            
+            </div>    
+        ):(<Quiz getAnswer={this.getAnswer.bind(this)}/>)
+
+        return comp
     }
 }
