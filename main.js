@@ -55,6 +55,9 @@ function showDialog(greeting) {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
+
+const io = null;
+
 app.on('ready', ()=>{
     createWindow()
     console.log("hola")
@@ -67,24 +70,27 @@ app.on('ready', ()=>{
       mainWindow.webContents.send('sendRendererMessage', { result: true });
     });    
     ipcMain.on('teacher',(event,props)=>{
-      var server = require('http').createServer();
-      var io = require('socket.io')(server);    
-      io.listen(8081);
+      if(io != null){
 
-      io.on('connection', function(socket){
-        console.log('a user connected');
-          socket.on("student", () => {
-              console.log("received test"); // not displayed
-              // io.emit("ok");
-          })
-          socket.on('send_ans', function (data) {
-            console.log(data);
-          });
-          socket.on('student', function (data) {
-            console.log("Recibiendo datos del estudiante")
-            console.log(data);
-          });
-      });    
+        var server = require('http').createServer();
+        var io = require('socket.io')(server);    
+        io.listen(8081);
+      
+        io.on('connection', function(socket){
+          console.log('a user connected');
+            socket.on("student", () => {
+                console.log("received test"); // not displayed
+                // io.emit("ok");
+            })
+            socket.on('send_ans', function (data) {
+              console.log(data);
+            });
+            socket.on('student', function (data) {
+              console.log("Recibiendo datos del estudiante")
+              console.log(data);
+            });
+        });    
+      }
     })    
 })
 
