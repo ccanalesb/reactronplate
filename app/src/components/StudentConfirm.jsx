@@ -5,7 +5,6 @@ import {Switch, Route, Link} from 'react-router-dom'
 
 export default class StudentConfirm extends React.Component {
     render() {
-        console.log(this.props.student.student.name)
         return (
             <div>
                 <Row gutter={8}>

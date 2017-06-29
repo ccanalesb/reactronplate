@@ -108,7 +108,7 @@ export default class Quiz extends React.Component {
                 {
                   this.state.current === steps.length - 1
                   &&
-                  <Button size="large" type="primary" onClick={() => message.success('Processing complete!')}>Terminar prueba</Button>
+                  <Button size="large" type="primary" onClick={() => this.props.finish_quiz()}>Terminar prueba</Button>
                 }
                 {
                   this.state.current > 0

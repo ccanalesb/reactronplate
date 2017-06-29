@@ -7,6 +7,8 @@ import StudentSelect from './StudentSelect.jsx'
 import StudentConfirm from './StudentConfirm.jsx'
 import StudentCam from './StudentCam.jsx'
 import StudentWait from './StudentWait.jsx'
+import StudentFinish from './StudentFinish.jsx'
+import StudentDone from './StudentDone.jsx'
 import Quiz from './Quiz.jsx'
 
 export default class StudentView extends React.Component {
@@ -34,7 +36,6 @@ export default class StudentView extends React.Component {
         }.bind(this));
 
         socket.on('quiz_started', function (data) {
-            console.log("EMPEZO LA WEA")
             let current = this.state.current
             if(current == 3){
                 current = 4
@@ -64,6 +65,11 @@ export default class StudentView extends React.Component {
         current = 2
         this.setState({ current:current })        
     }
+    back(){
+        let current = this.state.current
+        current = 4
+        this.setState({ current:current })        
+    }
     deny(){
         this.props.history.push("/");
     }
@@ -83,6 +89,24 @@ export default class StudentView extends React.Component {
         student.ans = answer
         socket.emit("send_ans",student); 
         this.setState({student:student})       
+    }
+    finish_quiz(){
+        // message.success('Processing complete!')
+        let current = this.state.current
+        current = 5
+        this.setState({ current:current })           
+    }
+    finish(){
+        let current = this.state.current
+        current = 6
+        this.setState({ current:current })          
+    }
+    send_final_student(){
+        console.log("Estudiante terminando quiz")
+        let student = this.state.student
+        student.finish = true
+        socket.emit("student_update",student);
+        this.setState({student:student})
     }
     render() {
         let components = [
@@ -110,7 +134,21 @@ export default class StudentView extends React.Component {
                     setRef = {this.setRef.bind(this)}
                     capture = {this.capture.bind(this)}
                 />
-            </div>)
+            </div>),
+            (<div> </div>),
+            (
+                <StudentFinish
+                    finish = {this.finish.bind(this)}
+                    back = {this.back.bind(this)}
+                />
+            ),
+            (
+                <StudentDone
+                    send_final_student = {this.send_final_student.bind(this)}
+                />
+            )
+            
+
         ]
 
         let comp = this.state.current!=4?(
@@ -125,7 +163,10 @@ export default class StudentView extends React.Component {
                     </Content>
                 </Layout>            
             </div>    
-        ):(<Quiz getAnswer={this.getAnswer.bind(this)}/>)
+        ):(<Quiz 
+            getAnswer={this.getAnswer.bind(this)}
+            finish_quiz = {this.finish_quiz.bind(this)}
+            />)
 
         return comp
     }
