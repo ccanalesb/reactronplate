@@ -18,7 +18,7 @@ import io from 'socket.io-client'
 require('./App.less')
 
 // var socket = io();
-var socket = io("http://localhost:8080");
+var socket = io("http://192.168.43.27:8080");
 // var socket = io.connect(document.location.protocol+'//'+document.location.host);
 window.socket = socket;
 
