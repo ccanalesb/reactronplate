@@ -1,0 +1,290 @@
+    1  sudo apt-get upgrade
+    2  sudo apt-get update 
+    3  sudo apt-get upgrade 
+    4  sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys BBEBDCB318AD50EC6865090613B00F1FD2C19886
+    5  echo deb http://repository.spotify.com stable non-free | sudo tee /etc/apt/sources.list.d/spotify.list
+    6  sudo apt-get update 
+    7  sudo apt-get install spotify-client
+    8  spotify 
+    9  snap find | grep telegram
+   10  sudo add-apt-repository ppa:atareao/telegram
+   11  sudo apt-get update
+   12  sudo apt-get install telegram
+   13  sudo xhost +SI:localuser:lightdm
+   14  sudo su lightdm -s /bin/bash 
+   15  sudo apt-get install texlive-full
+   16  sudo add-apt-repository ppa:webupd8team/sublime-text-3
+   17  sudo apt-get update
+   18  sudo apt-get install sublime-text-installer 
+   19  chmod 777 TeamSpeak3-Client-linux_amd64-3.0.14.run
+   20  cd
+   21  cd Downloads/
+   22  ls
+   23  chmod 777 TeamSpeak3-Client-linux_amd64-3.0.14.run
+   24  ls
+   25  chmod 777 TeamSpeak3-Client-linux_amd64-3.0.19.run
+   26  chmod 777 TeamSpeak3-Client-linux_amd64-3.0.19.4.run 
+   27  ./TeamSpeak3-Client-linux_amd64-3.0.19.4.run 
+   28  ls
+   29  cd
+   30  cd Home
+   31  ls
+   32  cd TeamSpeak3-Client-linux_amd64/
+   33  ./ts3client_runscript.sh 
+   34  ls /media/
+   35  sudo add-apt-repository "deb http://archive.canonical.com/ precise partner"
+   36  sudo apt-get update
+   37  sudo apt-get install acroread
+   38  sudo apt install adobereader-enu
+   39  sudp apt-get install p7zip-full
+   40  sudo apt-get install p7zip-full
+   41  cd Downloads/
+   42  ls
+   43  sudo tar -xf Franz-linux-x64-4.0.4.tgz -C /opt/franz
+   44  sudo tar -xf Franz-linux-x64-4.0.4.tgz -C /opt/
+   45  ls
+   46  cd Documents/
+   47  ls
+   48  cd Franz-linux-x64-4.0.4/
+   49  ls
+   50  xdg-open Franz
+   51  ./configure
+   52  ls
+   53  ./configure
+   54  Franz
+   55  ls
+   56  telegram
+   57  git help
+   58  sudo apt install git
+   59  git help
+   60  git help config
+   61  git config --global user.name "Carolina San Martin"
+   62  git config --global user.email carolina.sanmartin09@gmail.com
+   63  git config --global color.ui true
+   64  cd
+   65  ls
+   66  mkdir store
+   67  ls
+   68  cd store
+   69  ls
+   70  git init
+   71  ls
+   72  git status
+   73  ls
+   74  git status 
+   75  git add prueba.txt
+   76  ls
+   77  git status 
+   78  git remote add origin https://github.com/C4ro/test-archivos.git
+   79  ls
+   80  git remote -v
+   81  git push -u origin master
+   82  git remote add origin https://github.com/C4ro/test-archivos.git
+   83  git remote -v
+   84  git push -u origin master
+   85  ls
+   86  cd Desktop/
+   87  ls
+   88  cp example.txt Tarea\ 2\,\ V3.cpp 
+   89  cd 
+   90  cd store/
+   91  ls
+   92  cd
+   93  cd Desktop/
+   94  ls
+   95  sudo mv example.txt
+   96  mv --help
+   97  mv example.txt --T 
+   98  mv --help
+   99  cd
+  100  find . | egrep example.txt
+  101  cd Desktop/
+  102  mv example.txt ./Desktop/example.txt
+  103  cd
+  104  s
+  105  ls
+  106  cd store/
+  107  find . | egrep store
+  108  sudo xhost +SI:localuser:lightdm
+  109  sudo su lightdm -s /bin/bash 
+  110  ls
+  111  cd Desktop/
+  112  ls
+  113  ./Tarea\ 2\,\ V3 
+  114  ls
+  115  cd Desktop/
+  116  ls
+  117  ./ Tarea\ 2\,\ V3
+  118  ls
+  119  ./Tarea\ 2\,\ V3 
+  120  ls
+  121  ./mapexample 
+  122  cd Desktop/
+  123  ./Tarea\ 2\,\ V3 
+  124  cd Desktop/
+  125  ls
+  126  ./Tarea\ 2\,\ V3 
+  127  cd Desktop/
+  128  ls
+  129  ./Tarea\ 2\,\ V3 
+  130  cd Desktop/
+  131  ./Tarea\ 2\,\ V3 
+  132  cd Desktop/
+  133  ./Tarea\ 2\,\ V3 
+  134  cd Desktop/
+  135  ./Tarea\ 2\,\ V3 
+  136  cd Desktop/
+  137  ls
+  138  ./Tarea_v3 
+  139  cd Desktop/
+  140  ./Tarea_v3 
+  141  git clone
+  142  git clone https://github.com/crherar/software.git
+  143  ls
+  144  cd software/
+  145  ls
+  146  cd Desktop/
+  147  ./Tarea_v3 
+  148  cd Desktop/
+  149  .
+  150  ./Tarea_v3 
+  151  b
+  152  bc
+  153  cd Desktop/
+  154  ls
+  155  ./Tarea_v3 
+  156  cd Desktop/
+  157  ls
+  158  ./Tarea_v3 
+  159  cd Desktop/
+  160  ./Tarea_v3 
+  161  cd Desktop/
+  162  ./Tarea_v3 
+  163  cd Desktop/
+  164  ./Tarea_v3 
+  165  cd Desktop/
+  166  ./Tarea_v3 
+  167  cd Desktop/
+  168  ./Tarea_v3 
+  169  cd Desktop/
+  170  ./Tarea_v3 
+  171  cd Desktop/
+  172  ./Tarea_v3 
+  173  cd Desktop/
+  174  ./Tarea_v3 
+  175  cd Desktop/
+  176  ls
+  177  ./Tarea 2, V3
+  178  ls
+  179  ./Tarea\ 2\,\ V3 
+  180  cd Desktop/
+  181  ls
+  182  cd CFG/
+  183  ls
+  184  cd Desktop/
+  185  ./Tarea\ 2\,\ V3 
+  186  ls
+  187  cd CFG/
+  188  ./Tarea_v3 
+  189  cd DEs
+  190  cd Desktop/
+  191  cd Untitled\ Folder/
+  192  ls
+  193  ./Tarea_v3 
+  194  cd Desktop/
+  195  cd Untitled\ Folder/
+  196  ./Tarea_v3 
+  197  cd Untitled\ Folder/
+  198  cd Desktop/
+  199  cd Untitled\ Folder/
+  200  ./Tarea_v3 
+  201  cd Untitled\ Folder/
+  202  cd Desktop/
+  203  cd Untitled\ Folder/
+  204  ./Tarea_v3 
+  205  cd Downloads/
+  206  ./Tarea 
+  207  cd Downloads/
+  208  sudo unzip 2017-03-02-raspbian-jessie
+  209  df -h
+  210  unmount /dev/sb1
+  211  umount /dev/sb1
+  212  umount /dev/sdb1
+  213  sudo dd bs=1M if=2017-03-02-raspbian-jessie.img of=/dev/sdb
+  214  df -h
+  215  arp -a
+  216  df -h
+  217  arp -a
+  218  sudo diskutil unmount /dev/sdb1
+  219  sudo apt get install disksutil
+  220  sudo apt-get install disksutil
+  221  sudo apt-get install diskutil
+  222  sudo apt-get update
+  223  sudo apt-get install diskutil
+  224  df -h
+  225  unmount /dev/sdb1
+  226  umount /dev/sdb1
+  227  cd Downloads/
+  228  dd bs=4M if=2017-03-02-raspbian-jessie.img of=/dev/sdb1
+  229  sudo dd bs=4M if=2017-03-02-raspbian-jessie.img of=/dev/sdb1
+  230  diff -s from-sd-card.img 2017-03-02-raspbian-jessie.img
+  231  diff -s 2017-03-02-raspbian-jessie.img 2017-03-02-raspbian-jessie.img
+  232  sync
+  233  arp -a
+  234  cd
+  235  arp -a
+  236  cd Downloads/
+  237  sha1sum 2017-03-02-raspbian-jessie
+  238  sha1sum 2017-03-02-raspbian-jessie.img
+  239  df -h
+  240  cd Downloads/
+  241  umount /dev/sdb1 
+  242  sudo dd bs=4M if=2017-03-02-raspbian-jessie.img of=/dev/sdb1
+  243  sync
+  244  cd Downloads/}
+  245  df -h
+  246  umount /dev/sdb1
+  247  sudo dd bs=4M if=2017-03-02-raspbian-jessie.img of=/dev/sdb1
+  248  cd Downloads/
+  249  sudo dd bs=4M if=2017-03-02-raspbian-jessie.img of=/dev/sdb1
+  250  df -h
+  251  npm -v
+  252  node -v
+  253  sudo apt-get update
+  254  node -v
+  255  sudo apt-get install nodejs
+  256  sudo apt-get install npm
+  257  ls
+  258  cd Desktop/
+  259  ls
+  260  mkdir Tics2
+  261  cd Tics2/
+  262  ls
+  263  git clone https://github.com/ccanalesb/reactronplate
+  264  ls
+  265  cd reactronplate/
+  266  ls
+  267  npm install
+  268  npm install node-sass
+  269  sudo ln -s /usr/bin/nodejs /usr/bin/node
+  270  npm install node-sass
+  271  npm install
+  272  ls
+  273  npm run webpack
+  274  npm run electron
+  275  cd
+  276  ls
+  277  cd Desktop/
+  278  ls
+  279  cd Tics2/
+  280  ls
+  281  cd react
+  282  cd reactronplate/
+  283  ls
+  284  git branch -b 'caro'
+  285  git checkout -b 'caro'
+  286  git add .
+  287  git commit -m 'columnas culias'
+  288  git push origin caro
+  289  history > saved_commands.txt
+  290  history > saved_commands1.txt 
