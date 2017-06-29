@@ -32,17 +32,17 @@ export default class QuizDashboard extends React.Component {
             interval_id: null,
             students : []
         };
-        
+        ipcRenderer.on('send_active_students', (event,data)=>{
+            console.log(data)
+            this.setState({students : data.students})
+            console.log(this.state.students)
+        });                    
 
     }
 
     componentDidMount() {
         this.setState({interval_id: setInterval(() => this.update_time(), 1000)});
-        ipcRenderer.on('send_active_students', (event,data)=>{
-            console.log(data)
-            this.setState({students : data.students})
-            console.log(this.state.students)
-        });        
+   
     }
 
     update_time() {

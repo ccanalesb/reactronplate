@@ -129,6 +129,21 @@ app.on('ready', ()=>{
               }              
 
             });
+            socket.on('student_update', function (data) {
+              console.log(data)
+              let students = store.get('student_selected')
+              let index = students.map((st)=>st.student.number).indexOf(data.student.number)
+              if(index>=0){
+                students[index] = data;
+                mainWindow.webContents.send('send_active_students', { students });
+              }else{
+                students.push(data);
+                store.set('student_selected',students)
+                mainWindow.webContents.send('send_active_students', { students });
+
+              }              
+
+            });
             socket.on('student', function (data) {
               console.log("Recibiendo datos del estudiante")
               if(grade_name != ""){
@@ -145,11 +160,6 @@ app.on('ready', ()=>{
                     }
                 }
               }
-              // var data = fs.readFileSync('app/src/utils.js');
-              // // console.log("Synchronous read: " + data.toString());
-              // students_data = data.toString().substring([data.toString().search("sample_students")],data.toString().length);
-              // bd =JSON.stringify(students_data)
-              // console.log(bd)
             });
             
         });   
