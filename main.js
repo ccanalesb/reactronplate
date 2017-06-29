@@ -99,7 +99,9 @@ app.on('ready', ()=>{
       if(io == null){
         var server = require('http').createServer();
         io = require('socket.io')(server);    
-        io.listen(8081, '0.0.0.0');
+        // io.listen(8080, '192.168.43.21');
+        io.listen(8080);
+        console.log(io)
 
         io.on('connection', function(socket){
             console.log('a user connected');
