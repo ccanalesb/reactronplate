@@ -28,7 +28,7 @@ export default class QuizDashboard extends React.Component {
             status: 'inactive',
             elapsed_time: 0,
             start_time: moment("2017-06-28T00:00"),
-            last_restart: moment("2017-06-28T00:00"),
+            last_time_change: moment("2017-06-28T00:00"),
             interval_id: null,
             students : []
         };
@@ -41,13 +41,21 @@ export default class QuizDashboard extends React.Component {
     }
 
     componentDidMount() {
+        this.set_periodic_function()
+    }
+
+    set_periodic_function(){
         this.setState({interval_id: setInterval(() => this.update_time(), 1000)});
-   
+    }
+
+    reset_periodic_function(){
+        clearInterval(this.state.interval_id);
+        this.setState({interval_id: null});
     }
 
     update_time() {
         this.setState({
-            elapsed_time: secondsToHms(moment().diff(this.state.last_restart, 's'))
+            elapsed_time: secondsToHms(moment().diff(this.state.last_time_change, 's'))
         });
     }
 
@@ -68,11 +76,14 @@ export default class QuizDashboard extends React.Component {
             ipcRenderer.send('quiz_started',[]);
             console.log("empezando prueba")
             let start_time = moment();
-            this.setState({start_time: start_time, last_restart: start_time })
+            this.setState({start_time: start_time, last_time_change: start_time })
         } else if (this.state.status == 'in_progress') {
             this.setState({status: 'paused'})
+            this.reset_periodic_function();
         } else if (this.state.status == 'paused') {
+            this.setState({last_time_change: moment().subtract(this.state.elapsed_time, 's')})
             this.setState({status: 'in_progress'})
+            this.set_periodic_function();
         }
     }
 
@@ -90,6 +101,10 @@ export default class QuizDashboard extends React.Component {
             status_tag = ['blue', 'En espera']
         } else if (this.state.status == 'inactive') {
             status_tag = ['', 'Inactivo']
+        } else if (this.state.status == 'in_progress'){
+            status_tag = ['green', 'En progreso']
+        } else if (this.state.status == 'pause'){
+            status_tag = ['', 'Pausado']
         }
         let title = (
             <span className="colored display0">Estado: &nbsp;
@@ -101,6 +116,8 @@ export default class QuizDashboard extends React.Component {
             </span>
         )
         let students = this.state.students.length?this.state.students:[]
+        let finished_students = this.state.students.filter((st)=>{ return st.hasOwnProperty('finish')?st.finished:false })
+
         return (
             <Row gutter={8}>
                 <Col span={24}>
@@ -182,16 +199,37 @@ export default class QuizDashboard extends React.Component {
                         <Panel header="En evaluación" key="2">
                             <StudentsList students={this.state.students}/>
                         </Panel>
-                        <Panel header="Finalizados" key="3">
-                            <p>{text}</p>
-                        </Panel>
-                        <Panel header={"Conectados: "+this.state.students.length+" alumnos"} key="4">
+                        <Panel header={"Finalizados: "+finished_students.length+" alumnos"} key="3">
                             <div
                                 style={{
                                     padding: '30px'
                                 }}>
                                 <Row gutter={16}>
-                                    {this.state.students.map((e, i) => <Col
+                                    {finished_students.map((e, i) => <Col
+                                        span={8}
+                                        key={i}
+                                        >
+                                        <Card bordered={true}>
+                                            <div className="custom-image">
+                                                <img width="100%" src={e.snap} />
+                                            </div>
+                                            <div className="custom-card">
+                                                <p>Nombre: {e.student.name}</p>
+                                                <p>Nº lista: {e.student.number}</p>
+                                            </div>
+                                        </Card>
+                                    </Col>)}
+                                </Row>
+
+                            </div>
+                        </Panel>
+                        <Panel header={"Conectados: "+students.length+" alumnos"} key="4">
+                            <div
+                                style={{
+                                    padding: '30px'
+                                }}>
+                                <Row gutter={16}>
+                                    {students.map((e, i) => <Col
                                         span={8}
                                         key={i}
                                         >
